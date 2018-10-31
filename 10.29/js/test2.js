@@ -16,36 +16,31 @@
 
 var imagesA=document.getElementById("images").children;
 
-console.log(imagesA);
-//------行内样式换显示样式
-// //隐藏
-// imagesA[0].style.display="none";
-// //显示
-// imagesA[4].style.display="block";
-// imagesA[4].style.border="1px soild red";
+//获取一组li文本
+var txtList=document.querySelectorAll(".txtItem");
 
 
-//-----------类名更换样式
-//隐藏
-// imagesA[0].className="hiddenImg";
-//显示
-// imagesA[0].className="displayImg";
+
+// console.log(txtlist);
 
 
 //----------利用计时器间隔1s,显示1张图像，其余图像隐藏。
 var currentNo=0;
 function changImg(){
+    //获取图片/文本总量
+    var nodeLength=txtList.length
     //排他原理，去掉同类，突出自己。
     for(var i=0; i<imagesA.length;i++){
+        //同类图片透明度
         imagesA[i].className="hiddenImg";
-        console.log(imagesA[i]);
+        //同类文本设置正常非高亮
+        txtList[i].className="txtItem normalColor";
+        // console.log(imagesA[i]);
     }
-    //或者
-// for(const item of imagesA){
-//     item.className="hiddenImg";
-// }
-     //再突出自己
+     //再突出自己 当前图片透明度
     imagesA[currentNo].className="displayImg";
+    //排他原理2，设置文本高亮
+    txtList[currentNo].className="txtItem heighlightColor";
     //换个元素，为下一次计时器调用做准备
     if(currentNo<7){currentNo++;}
     else{
@@ -60,14 +55,40 @@ var timer=window.setInterval(changImg,1000);
 //为按钮添加鼠标移入移出暂停事件
 function stopChange(){
     window.clearInterval(timer);
+    
 }
 function starChange(){
      timer=window.setInterval(changImg,1000)
 }
 
-var imagesdiv=document.getElementById("images");
-console.log(imagesdiv);
-imagesdiv.addEventListener('mouseover',stopChange);
-imagesdiv.addEventListener('mouseout',starChange);
+var sliderdiv=document.querySelector(".slider");
+// console.log(imagesdiv);
+//为sliderDIV注册移出事件
+sliderdiv.addEventListener('mouseover',stopChange);
+sliderdiv.addEventListener('mouseout',starChange);
 
+//为所有文本li注册鼠标移出事件，移入以后当前高亮，跳抓到对应图片
+for(var i=0;i<txtList.length;i++){
+    txtList[i].addEventListener("mouseover",gotoImg);
+    txtList[i].no=i;
+}
+function gotoImg(){
+    //获得当前显示图像的编号/文本编号 this 是当前发生的本体
+    console.log(this.no);
+    currentNo=this.no;
+    //调用更换图片/文本函数
+    changImg();
+}
+// var leftButton=document.querySelector(" .leftButton");
+// var rightButton=document.querySelector(" .rightButton");
 
+// leftButton.addEventListener('click',leftImg);
+// rightButton.addEventListener('click',rightImg);
+
+function leftImgGo(){
+    leftImg();
+    changImg();
+}
+function rightImgGo(){
+    
+}
