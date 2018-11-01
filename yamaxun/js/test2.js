@@ -42,11 +42,12 @@ function rightImg() {
         currentNo = 0;
     }  
 }
+//左向换片/文本
 function leftImgGo(){
     leftImg();
     changeImg();
 }
-
+//右向换片/文本
 function rightImgGo(){
     rightImg();
     changeImg();
@@ -56,22 +57,14 @@ function rightImgGo(){
 //网页加载后启动定时器，每隔1秒调用changeImgGo（）换片
 var timer = window.setInterval(rightImgGo, 1000);
 
-//鼠标移出后移除定时器
-function stopChange() {
-    window.clearInterval(timer);
-    
-}
-//鼠标移入后重设定时器
-function startChange() {
-    timer = window.setInterval(rightImgGo, 1000);
-}
+
 
 //获取sliderDIV以注册移入移出事件
 var sliderDiv = document.querySelector(".slider");
 
-//为sliderDIV注册移入移出事件
-sliderDiv.addEventListener('mouseover', stopChange);
-sliderDiv.addEventListener('mouseout', startChange);
+// 匿名事件
+sliderDiv.addEventListener('mouseover', function stopChange(){window.clearInterval(timer);});
+sliderDiv.addEventListener('mouseout', function startChange(){timer = window.setInterval(rightImgGo, 1000);});
 
 
 // 为所有文本Li注册鼠标移入事件
@@ -80,19 +73,15 @@ for (var i = 0; i < txtList.length; i++) {
     //添加自定义属性no 记录当前li的编号
     txtList[i].no = i;
 }
-//移入之后，当前li高亮,跳转到对应图片
+//切换到编号文本/图片
 function gotoImg() {
-    
-    // 获得当前显示图像的编号/文本编号  this 是当前事件发生的本体
-    
     currentNo = this.no;
-    //调用更换图片/文本函数
     changeImg();
 }
 var leftButton = document.querySelector('.leftButton');
 var rightButton = document.querySelector('.rightButton');
 
-
+//上下一张注册事件
 leftButton.addEventListener('click', leftImgGo);
 rightButton.addEventListener('click', rightImgGo);
 
