@@ -57,15 +57,13 @@ function rightImgGo(){
 //网页加载后启动定时器，每隔1秒调用changeImgGo（）换片
 var timer = window.setInterval(rightImgGo, 1000);
 
-
-
 //获取sliderDIV以注册移入移出事件
 var sliderDiv = document.querySelector(".slider");
 
-// 匿名事件
+
+// 匿名函数
 sliderDiv.addEventListener('mouseover', function stopChange(){window.clearInterval(timer);});
 sliderDiv.addEventListener('mouseout', function startChange(){timer = window.setInterval(rightImgGo, 1000);});
-
 
 // 为所有文本Li注册鼠标移入事件
 for (var i = 0; i < txtList.length; i++) {
