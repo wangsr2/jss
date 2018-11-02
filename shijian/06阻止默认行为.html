@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>阻止默认行为</title>
+    <style>
+      div {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <div>
+        <label for="userName">用户名: </label>
+        <input id="userName" type="text">
+        <span id="usernameError" style="display:none;">你写的啥玩意啊，不合适赶紧重写</span>
+      </div>
+      <div>
+        <label for="psw">密码 </label>
+        <input id="psw" type="text">
+        <span id="pawError" style="display:none;">你写的啥玩意啊，不合适赶紧重写</span>
+      </div>
+      <div>
+        <input id="submit" type="submit">
+      </div>
+    </form>
+    <p></p>
+    <script>
+      //初始化获取元素
+      var form = document.querySelector('form');
+      var userName = document.getElementById('userName');
+      var psw = document.getElementById('psw');
+      var userNameError = document.getElementById('usernameError');
+      var pswError = document.getElementById('pswError');
+
+      var flagUserName=true;//表示用化名的值不合格(提交因子)
+      var flagPsw=true;//表示密码的值不合格（提交因子）
+
+      //用户框获得焦点
+      userName.focus();
+
+        // 事件处理程序 
+      form.onsubmit = function(e) {
+      //获取用户名的值，并求出长度，根据长度判断是否显示出错提示即使提交因子状态
+       if(username.value.length>4 && username.value.length < 10){
+         //用户达标名
+         flagUserName=false;
+         userNameError.style.display="none";
+         }
+         else{
+           //用户不达标
+          userNameError.style.display="inline";
+          flagUserName=true;
+         }
+         //获取用户密码，并判断
+       if(psw.value.length > 1){
+         //达标
+         flagPsw=false;
+         pswError.style.display="none";
+       }
+       else{
+         //不达标
+         flagPsw=true;
+         pswError.style.display="inline";
+       }
+
+
+
+
+        if(flaguserName|| flagPsw) {
+          //用户名和密码二者有一项不达标都不能提交（组织默认动作）
+          e.preventDefault();
+        }    
+      }
+
+    </script>
+  </body>
+</html>
