@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload=function(){
+            var uploadBtn=document.getElementById("weiboUpload");
+            var newTxt=document.getElementById("newTxt");
+            var contentUl=document.createElement("ul");
+            uploadBtn.parentNode.appendChild(contentUl);
+            uploadBtn.onclick=function(){
+                var newLi=document.createElement("li");
+                if(newTxt.value==""){
+                    window.alert("发布的内容不能为空");
+                    return false;
+                }
+                newLi.innerHTML=newTxt.value;
+                var delLink=document.createElement("a");
+                delLink.href="#";
+                delLink.innerHTML="删除";
+                delLink.onclick=function(){
+                    contentUl.removeChild(this.parentNode);
+                }
+                newLi.appendChild(delLink);
+                if(contentUl.hasChildNodes()){ contentUl.insertBefore(newLi,contentUl.firstChild);
+                console.log(contentUl.childNodes)}
+                else contentUl.appendChild(newLi);
+                newTxt.value="";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+         微博发布: <textarea name="" id="" cols="30" rows="10"></textarea>  <button id="weiboUpload">发布</button>
+    </div>
+</body>
+</html>
